@@ -12,6 +12,8 @@ namespace TestTask.Models.Tests
 
         public string Description { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public List<Question> Questions { get; set; }
     }
 }

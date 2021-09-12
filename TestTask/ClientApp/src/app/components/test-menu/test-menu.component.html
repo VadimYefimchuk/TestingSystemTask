@@ -1,1 +1,21 @@
-<p>test-menu works!</p>
+<div class="test-list">
+    <div *ngFor="let test of testList">
+        <mat-card class="card-style">
+            <mat-card-header>
+                <mat-card-title>{{ test.testName}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image 
+                 class="img-style" 
+                 src="{{test.imageUrl}}" 
+                 alt="Photo of the {{ test.testName}} test">
+            <mat-card-content class="card-content">
+                <p>
+                    {{ test.description }}
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button>START</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
