@@ -1,6 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -31,6 +32,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
 
     MatCardModule,
     MatButtonModule,
@@ -38,6 +40,9 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     MatCheckboxModule,
     MatRadioModule,
     MatStepperModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
 
     FormsModule,
     ApiAuthorizationModule,
@@ -52,6 +57,9 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
   ],
   entryComponents: [
     TestDialogComponent
+  ],
+  schemas: [ 
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   bootstrap: [
     AppComponent

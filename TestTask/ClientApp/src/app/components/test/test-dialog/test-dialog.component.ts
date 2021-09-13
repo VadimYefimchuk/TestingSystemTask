@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { Answer } from '../../models/answer';
 import { Test } from './../../models/test';
 
 @Component({
@@ -9,18 +9,47 @@ import { Test } from './../../models/test';
     styleUrls: ['./test-dialog.component.css']
 })
 export class TestDialogComponent implements OnInit {
-    isProceed: boolean;
-    isChecked: false;
+    isProceed = false;
+    isChecked = false;
+    isMarked = false;
+    testResult = 0;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public test: Test,
-    ) { 
-        this.isProceed = false;
+    ) {
+        test.questions.map(question => {
+            this.shuffle(question.answers);
+        });
     }
 
-  ngOnInit() { }
+    ngOnInit() {
+    }
 
-    proceedTesting() {
+    proceedTesting(): void {
         this.isProceed = !this.isProceed;
+    }
+
+    setAnswer(answer: Answer): void {
+        this.isMarked = true;
+
+        if (answer.isCorrect) {
+            this.testResult ++;
+        }
+    }
+
+    setIsMarkedToFalse() {
+        this.isMarked = false;
+    }
+
+    setIsMarkedToTrue() {
+        this.isMarked = true;
+    }
+
+    setTestResultToZero() {
+        this.testResult = 0;
+    }
+
+    private shuffle(array: Array<any>): void {
+        array.sort(() => Math.random() - 0.5);
     }
 }

@@ -5,13 +5,43 @@
         I agree to start
     </mat-checkbox>
     <div>
-        <button mat-button 
-                (click)="proceedTesting()" 
-                [disabled]="!isChecked">
+        <button mat-button (click)="proceedTesting()" [disabled]="!isChecked">
             Proceed
         </button>
     </div>
 </div>
 <div *ngIf="isProceed">
-    
+    <mat-horizontal-stepper linear #stepper>
+        <mat-step *ngFor="let question of test.questions; index as i;">
+            <ng-template matStepLabel>Question #{{ i + 1 }}</ng-template>
+            <p><strong>{{ question.questionText }}</strong></p>
+            <mat-radio-group
+                class="radio-group">
+                <mat-radio-button class="radio-button" 
+                                  *ngFor="let answer of question.answers" 
+                                  [value]="answer"
+                                  (click)="setAnswer(answer)">
+                    {{answer.answerText}}
+                </mat-radio-button>
+                </mat-radio-group>
+            <div>
+                <button mat-button matStepperPrevious (click)="setIsMarkedToTrue()">Back</button>
+                <button mat-button matStepperNext [disabled]="!isMarked" (click)="setIsMarkedToFalse()">Next</button>
+            </div>
+        </mat-step>
+        <mat-step class="final-step">
+            <ng-template matStepLabel>Your result!</ng-template>
+            <p *ngIf="testResult === test.questions.length; else loserText">You are win!</p>
+            <ng-template #loserText>
+                Please try again!
+                <button mat-button 
+                        (click)="stepper.reset(); setTestResultToZero();"
+                        >Start again</button>
+            </ng-template>
+            <div>
+                <button mat-button matStepperPrevious (click)="setIsMarkedToTrue()">Back</button>
+                <button mat-button mat-dialog-close>Close</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
 </div>
