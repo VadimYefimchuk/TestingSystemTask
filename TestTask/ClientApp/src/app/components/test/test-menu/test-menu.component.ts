@@ -1,6 +1,8 @@
-import { Test } from './../models/test';
 import { Component, OnInit } from '@angular/core';
-import { TestService } from '../services/test.service';
+import { MatDialog } from '@angular/material';
+import { Test } from '../../models/test';
+import { TestService } from '../../services/test.service';
+import { TestDialogComponent } from '../test-dialog/test-dialog.component';
 
 @Component({
     selector: 'app-test-menu',
@@ -11,7 +13,8 @@ export class TestMenuComponent implements OnInit {
     testList: Array<Test>;
 
     constructor(
-        private testService: TestService
+        private testService: TestService,
+        private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -20,5 +23,11 @@ export class TestMenuComponent implements OnInit {
                 this.testList = result;
             }
         }, error => console.error(error));
+    }
+
+    startTesting(test: Test) {
+        this.dialog.open(TestDialogComponent, {
+            data: test            
+        })
     }
 }

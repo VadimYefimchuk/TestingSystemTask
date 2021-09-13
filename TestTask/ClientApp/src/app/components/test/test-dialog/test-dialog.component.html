@@ -1,0 +1,17 @@
+<div *ngIf="!isProceed">
+    <h3>Description</h3>
+    <p>{{ test.description }}</p>
+    <mat-checkbox [(ngModel)]="isChecked">
+        I agree to start
+    </mat-checkbox>
+    <div>
+        <button mat-button 
+                (click)="proceedTesting()" 
+                [disabled]="!isChecked">
+            Proceed
+        </button>
+    </div>
+</div>
+<div *ngIf="isProceed">
+    
+</div>
