@@ -1,47 +1,91 @@
-<div *ngIf="!isProceed">
-    <h3>Description</h3>
-    <p>{{ test.description }}</p>
-    <mat-checkbox [(ngModel)]="isChecked">
-        I agree to start
-    </mat-checkbox>
-    <div>
-        <button mat-button (click)="proceedTesting()" [disabled]="!isChecked">
-            Proceed
-        </button>
+<div class="dialog-color">
+    <div *ngIf="!isProceed">
+        <h4>Description</h4>
+        <p>
+            {{ test.description }}
+        </p>
+        <mat-checkbox [(ngModel)]="isChecked">
+            <strong>
+                I agree to start
+            </strong> 
+        </mat-checkbox>
+        <div class="width-content"
+             matTooltip="Click on the checkbox please"
+             matTooltipPosition="right"
+             [matTooltipDisabled]="isChecked">
+            <button mat-raised-button 
+                    id="proceed-button"
+                    (click)="proceedTesting()" 
+                    [disabled]="!isChecked">
+                PROCEED
+            </button>
+        </div>
     </div>
-</div>
-<div *ngIf="isProceed">
-    <mat-horizontal-stepper linear #stepper>
-        <mat-step *ngFor="let question of test.questions; index as i;">
-            <ng-template matStepLabel>Question #{{ i + 1 }}</ng-template>
-            <p><strong>{{ question.questionText }}</strong></p>
-            <mat-radio-group
-                class="radio-group">
-                <mat-radio-button class="radio-button" 
-                                  *ngFor="let answer of question.answers" 
-                                  [value]="answer"
-                                  (click)="setAnswer(answer)">
-                    {{answer.answerText}}
-                </mat-radio-button>
+    <div *ngIf="isProceed" class="default-test-dialog">
+        <mat-horizontal-stepper linear #stepper>
+            <mat-step *ngFor="let question of test.questions; index as i;">
+                <ng-template matStepLabel>Question #{{ i + 1 }}</ng-template>
+                <p>
+                    <strong>
+                        {{ question.questionText }}
+                    </strong>
+                </p>
+                <mat-radio-group
+                    class="radio-group">
+                    <mat-radio-button class="radio-button" 
+                                      *ngFor="let answer of question.answers" 
+                                      [value]="answer"
+                                      (click)="setAnswer(question, answer)">
+                                      {{answer.answerText}}
+                    </mat-radio-button>
                 </mat-radio-group>
-            <div>
-                <button mat-button matStepperPrevious (click)="setIsMarkedToTrue()">Back</button>
-                <button mat-button matStepperNext [disabled]="!isMarked" (click)="setIsMarkedToFalse()">Next</button>
-            </div>
-        </mat-step>
-        <mat-step class="final-step">
-            <ng-template matStepLabel>Your result!</ng-template>
-            <p *ngIf="testResult === test.questions.length; else loserText">You are win!</p>
-            <ng-template #loserText>
-                Please try again!
-                <button mat-button 
-                        (click)="stepper.reset(); setTestResultToZero();"
-                        >Start again</button>
-            </ng-template>
-            <div>
-                <button mat-button matStepperPrevious (click)="setIsMarkedToTrue()">Back</button>
-                <button mat-button mat-dialog-close>Close</button>
-            </div>
-        </mat-step>
-    </mat-horizontal-stepper>
+                <div class="display-flex">
+                    <button mat-button 
+                            matStepperPrevious 
+                            (click)="setIsMarkedToTrue()">
+                            BACK
+                    </button>
+                    <div class="width-content"
+                         matTooltip="Select answer please"
+                         matTooltipPosition="right"
+                         [matTooltipDisabled]="isMarked">
+                         <button mat-button 
+                                 matStepperNext 
+                                 [disabled]="!isMarked" 
+                                 (click)="setIsMarkedToFalse()">
+                                 NEXT
+                         </button>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step class="final-step">
+                <ng-template matStepLabel>
+                    Your result!
+                </ng-template>
+                <h3 *ngIf="testResult; else loserText">
+                    You are win!
+                </h3>
+                <ng-template #loserText>
+                    <h3>Please try again!</h3>
+                </ng-template>
+                <div id="final-step-buttons">
+                    <button mat-button 
+                            *ngIf="testResult"
+                            matStepperPrevious 
+                            (click)="setIsMarkedToTrue()">
+                            BACK
+                    </button>
+                    <button mat-button
+                            *ngIf="!testResult"
+                            (click)="stepper.reset(); setTestResultToFalse();">
+                            START AGAIN
+                    </button>
+                    <button mat-button 
+                            mat-dialog-close>
+                            CLOSE
+                    </button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
 </div>

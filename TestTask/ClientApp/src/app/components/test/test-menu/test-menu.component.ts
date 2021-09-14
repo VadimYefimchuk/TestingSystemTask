@@ -18,16 +18,17 @@ export class TestMenuComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.testService.getTest().subscribe(result => {
+        this.testService.getTests().subscribe(result => {
             if(result && result.length) {
                 this.testList = result;
             }
         }, error => console.error(error));
     }
 
-    startTesting(test: Test) {
+    startTesting(test: Test): void {
         this.dialog.open(TestDialogComponent, {
-            data: test            
+            data: test,
+            panelClass: 'custom-dialog-container'           
         })
     }
 }

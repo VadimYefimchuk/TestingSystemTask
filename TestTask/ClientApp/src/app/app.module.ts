@@ -8,6 +8,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -19,50 +20,54 @@ import { TestMenuComponent } from './components/test/test-menu/test-menu.compone
 import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    TestMenuComponent,
-    TestDialogComponent,
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
+    declarations: [
+        AppComponent,
+        NavMenuComponent,
+        HomeComponent,
+        TestMenuComponent,
+        TestDialogComponent,
+    ],
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
 
-    MatCardModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatStepperModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        MatStepperModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatTooltipModule,
 
-    FormsModule,
-    ApiAuthorizationModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'test', component: TestMenuComponent, pathMatch: 'full' },
-      { path: '**', component: HomeComponent },
-    ])
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
-  ],
-  entryComponents: [
-    TestDialogComponent
-  ],
-  schemas: [ 
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+        FormsModule,
+        ApiAuthorizationModule,
+        RouterModule.forRoot([
+            { path: '', component: HomeComponent, pathMatch: 'full' },
+            { path: 'test', component: TestMenuComponent, pathMatch: 'full' },
+            { path: '**', component: HomeComponent },
+        ])
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthorizeInterceptor,
+            multi: true
+        }
+    ],
+    entryComponents: [
+        TestDialogComponent
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }

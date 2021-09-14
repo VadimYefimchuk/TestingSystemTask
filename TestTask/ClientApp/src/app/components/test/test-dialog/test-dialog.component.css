@@ -1,3 +1,18 @@
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
+
+#final-step-buttons {
+    display: flex;
+    width: min-content;
+    margin: auto;
+    margin-top: 100px;
+}
+
+#proceed-button {
+    margin-top: 10px;
+}
+
 .radio-group {
     display: flex;
     flex-direction: column;
@@ -20,6 +35,28 @@
     color: red;
 }
 
-::ng-deep .mat-horizontal-stepper-header{
-    pointer-events: none !important;
+.default-test-dialog {
+    width: 900px;
+    height: 300px;
+}
+
+.width-content{
+    width: max-content;
+}
+
+.display-flex {
+    display: flex;
+}
+
+h3 {
+    text-align: center;
+    text-shadow: tomato;
+    margin-bottom: 35px;
+    margin-top: 50px;
+    font-family: Times, Times New Roman, Georgia, serif;
+}
+
+button {
+    background-color: #C9E6FF;
+    margin-right: 10px;
 }

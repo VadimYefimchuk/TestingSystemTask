@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestTask.Data;
-using TestTask.Models.Tests;
 
 namespace TestTask.Controllers
 {
@@ -15,6 +12,7 @@ namespace TestTask.Controllers
     public class TestController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly Random rnd = new Random();
 
         public TestController(ApplicationDbContext context)
         {
@@ -28,7 +26,9 @@ namespace TestTask.Controllers
                                       .Include(x => x.Questions)
                                       .ThenInclude(z => z.Answers)
                                       .ToListAsync();
-            return Ok(tests);
+
+            return Ok(tests.OrderBy(x => rnd.Next())
+                           .Take(3));
         }
     }
 }

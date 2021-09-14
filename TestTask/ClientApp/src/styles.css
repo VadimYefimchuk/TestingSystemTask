@@ -1,6 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --light-blue-color: #E7F4FF;
+  --grass-green-color: #15C600;
+}
 
-/* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
@@ -16,4 +18,30 @@ code {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #D3D3D3; }
+
+.custom-dialog-container .mat-dialog-container {
+  background-color: var(--light-blue-color) !important;
+  border-radius: 10px !important;
+}
+
+.mat-stepper-horizontal {
+  background-color: var(--light-blue-color) !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--grass-green-color);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: var(--grass-green-color);
+}
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background-color: var(--grass-green-color);
+  color: #fff;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: var(--grass-green-color);
+}
