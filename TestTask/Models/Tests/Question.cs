@@ -15,6 +15,5 @@ namespace TestTask.Models.Tests
         public Test Test { get; set; }
 
         public List<Answer> Answers { get; set; }
-
     }
 }

@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using TestTask.Data;
@@ -11,6 +8,8 @@ using TestTask.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
+using System;
 
 namespace TestTask
 {
@@ -39,6 +38,8 @@ namespace TestTask
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddControllersWithViews()
                     .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -51,6 +52,7 @@ namespace TestTask
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
