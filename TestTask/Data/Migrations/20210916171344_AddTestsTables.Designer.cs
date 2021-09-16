@@ -10,8 +10,8 @@ using TestTask.Data;
 namespace TestTask.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210911185112_AddedTestsTable")]
-    partial class AddedTestsTable
+    [Migration("20210916171344_AddTestsTables")]
+    partial class AddTestsTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -354,6 +354,9 @@ namespace TestTask.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TestName")

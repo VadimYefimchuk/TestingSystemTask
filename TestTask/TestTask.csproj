@@ -37,6 +37,10 @@
     <Compile Remove="Data\Migrations\20210911184440_AddedTestsTable.Designer.cs" />
     <Compile Remove="Data\Migrations\20210911184747_AddedTestsTable.cs" />
     <Compile Remove="Data\Migrations\20210911184747_AddedTestsTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210911185112_AddedTestsTable.cs" />
+    <Compile Remove="Data\Migrations\20210911185112_AddedTestsTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210912111728_AddedImageUrlFieldToTestTable.cs" />
+    <Compile Remove="Data\Migrations\20210912111728_AddedImageUrlFieldToTestTable.Designer.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
