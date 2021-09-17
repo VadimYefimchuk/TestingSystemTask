@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Answer } from '../../models/answer';
-import { Question } from '../../models/question';
+import { TestService } from '../../services/test.service';
 import { Test } from './../../models/test';
 
 @Component({
@@ -13,13 +13,15 @@ export class TestDialogComponent implements OnInit {
     isProceed = false;
     isChecked = false;
     isMarked = false;
+    isCheckAnswer = false;
 
-    testAnswerId: Array<number> = [];
-    testAnswerIsCorrect: Array<boolean> = [];
     testResult = false;
+
+    userAnswers: Array<Answer> = [];
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public test: Test,
+        private testService: TestService,
     ) {
         test.questions.map(question => {
             this.shuffle(question.answers);
@@ -32,33 +34,16 @@ export class TestDialogComponent implements OnInit {
         this.isProceed = !this.isProceed;
     }
 
-    setAnswer(question: Question, answer: Answer): void {
+    setAnswer(answer: Answer): void {
         this.isMarked = true;
 
-        var index = (this.testAnswerId && this.testAnswerId.length) 
-                    ? this.testAnswerId.indexOf(question.id) 
-                    : -1;
+        let index = this.userAnswers.findIndex(x => x.questionId === answer.questionId)
 
-        if (index !== -1) {
-            this.testAnswerIsCorrect[index] = answer.isCorrect;
+        if (index !== -1 || null) {
+            this.userAnswers[index] = answer;
         } else {
-            this.testAnswerId.push(question.id);
-            this.testAnswerIsCorrect.push(answer.isCorrect);
+            this.userAnswers.push(answer);
         }
-
-        this.isTestResultCorrect();
-    }
-
-    isTestResultCorrect(): void {
-        let answerCount = 0;
-
-        this.testAnswerIsCorrect.forEach(element => {
-            if (element) {
-                answerCount++;
-            }
-        });
-        
-        this.testResult = answerCount === this.test.questions.length;
     }
 
     setIsMarkedToFalse(): void {
@@ -71,8 +56,14 @@ export class TestDialogComponent implements OnInit {
 
     setTestResultToFalse(): void {
         this.testResult = false;
-        this.testAnswerId = [];
-        this.testAnswerIsCorrect = [];
+        this.isCheckAnswer = false;
+    }
+
+    getResult(): void {
+        this.testService.getTestResult(this.userAnswers).subscribe(result => {
+            this.testResult = result;
+            this.isCheckAnswer = true;
+        }, error => console.error(error));;
     }
 
     private shuffle(array: Array<any>): void {

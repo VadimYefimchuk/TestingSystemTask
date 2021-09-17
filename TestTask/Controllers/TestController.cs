@@ -6,7 +6,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestTask.Data;
-using TestTask.Models.Tests;
 using TestTask.Models.TestsDTO;
 
 namespace TestTask.Controllers
@@ -40,8 +39,24 @@ namespace TestTask.Controllers
             }
 
             return Ok(mappedList);
+        }
 
-            return Ok(tests.OrderBy(x => rnd.Next()).Take(3));
+        [HttpPost]
+        public async Task<IActionResult> CheckTestsResult(List<AnswerDto> userAnswers)
+        {
+            var countCorrectAnswer = 0;
+            
+            foreach(var answer in userAnswers)
+            {
+                var isCorrect = await _context.Answers.Where(x => x.Id == answer.Id).Select(x => x.IsCorrect).FirstOrDefaultAsync();
+
+                if (isCorrect)
+                {
+                    countCorrectAnswer++;
+                }
+            }
+
+            return Ok(countCorrectAnswer == userAnswers.Count());
         }
     }
 }
